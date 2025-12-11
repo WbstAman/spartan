@@ -218,7 +218,7 @@ p-[22px]
             rightLabel="x"
             value={autoCashoutAt}
             showIncrement
-            onChange={(e) => handleCashoutAt(e, "text")}
+            onChange={(e) => handleCashoutAt(e, null)}
             onIncrement={() => handleCashoutAt(null, "inc")}
             onDecrement={() => handleCashoutAt(null, "dec")}
           />
