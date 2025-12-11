@@ -1,0 +1,11 @@
+.balloonContainer {
+  margin: auto auto auto 35.3%;
+ }
+
+@media (max-width: 1470px) {
+  .balloonContainer {
+    /* margin: auto auto auto 31.3vh; */
+  margin: auto auto auto 35.3%;
+  
+}
+}

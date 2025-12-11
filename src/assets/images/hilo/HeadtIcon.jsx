@@ -1,0 +1,16 @@
+import React from 'react'
+
+const HeadtIcon = ({ color = "black", width = 40, height = 40 }) => {
+    return (
+        <>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 1000 1000"
+                width={width}
+                height={height}
+                fill={color} style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
+                <path d="M500.7,853.8c-46.7-50.1-92.1-98.9-137.5-147.5c-66-70.8-132.7-141-198-212.5c-101.6-111.2-54.8-307.4,97.1-342.4  c71.2-16.4,131.1,7.3,180.2,60.2c18.6,20,37.1,40,57.2,61.6c20.5-21.9,40.2-42.8,59.8-63.9c30.9-33.2,68.1-54.7,113.4-60.9  c102.7-14.1,192.2,58.9,211.2,159.2c14.2,74.9-5.4,140.3-58.2,196.4C720.7,615.9,616.2,728.7,511.4,841.1  C507.9,844.8,504.8,848.9,500.7,853.8z" />
+            </svg>
+        </>
+    )
+}
+
+export default HeadtIcon

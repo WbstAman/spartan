@@ -1,0 +1,18 @@
+.balloonFirstBet {
+  animation: firstBetBounce 0.9s ease-out forwards;
+}
+
+@keyframes firstBetBounce {
+  0% {
+    transform: translateY(40px) scale(0);
+    filter: drop-shadow(0 0 0px #ff3b3b);
+  }
+  60% {
+    transform: translateY(-6px) scale(1.3);
+    filter: drop-shadow(0 0 25px #ff3b3b);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 8px #ff3b3b);
+  }
+}
