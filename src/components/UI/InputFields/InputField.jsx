@@ -1,3 +1,5 @@
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+
 const InputField = ({
   label = "",
   rightLabel = "",
@@ -69,6 +71,27 @@ const InputField = ({
               className="px-4 h-[41px] font-bold text-white text-sm bg-scorebox-gray transition cursor-pointer  "
             >
               2×
+            </button>
+          </>
+        )}
+
+                {/* Increment Controls if needed */}
+        {showIncrement && (
+          <>
+            <button
+              type="button"
+              onClick={onDecrement}
+              className="px-3 py-2 font-bold text-white text-md bg-[#0F2738] hover:bg-[#123248] transition"
+            >
+                <IoIosArrowDown/>
+
+            </button>
+            <button
+              type="button"
+              onClick={onIncrement}
+              className="px-3 py-2 font-bold text-white text-md bg-[#0F2738] hover:bg-[#123248] transition"
+            >
+                <IoIosArrowUp/>
             </button>
           </>
         )}

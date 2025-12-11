@@ -87,7 +87,7 @@ const CrashSidebar = () => {
 
   const handleBetAmount = (value, action) => {
     let v = String(value);
-    if (action === "text") {
+    if (action === null) {
       if (v.startsWith(".")) v = "0" + v;
       if (v.includes(".")) {
         const [int, dec] = v.split(".");
