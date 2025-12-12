@@ -73,7 +73,7 @@ const PlayersBetsPanel = ({ activeTab, icon }) => {
                     <HiddenIcon className="text-xs text-slate-400" />
                   ) : null}
                   <span
-                    className={`truncate ${
+                    className={`truncate font-InstrumentSansMedium ${
                       winner.nick === "HOUSE"
                         ? "text-slate-400"
                         : "text-green-400 font-bold"
@@ -83,8 +83,8 @@ const PlayersBetsPanel = ({ activeTab, icon }) => {
                   </span>
                 </div>
 
-                <div className="w-[20%] text-slate-500 text-xs">
-                  {winner.time}
+                <div className="text-yellow-400 font-bold px-3">
+                  {winner.winData || "-"}
                 </div>
 
                 <div className="w-[40%] flex items-center justify-end gap-2">

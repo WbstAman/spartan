@@ -320,8 +320,16 @@ const Pump = () => {
             (
               // <div className="relative w-[244px] lg:w-[244px] lg:h-[294px] xl:w-[244px] xl:h-[294px] m-auto">
               <div className="relative w-[244px] lg:w-[244px] xl:w-[244px] m-auto"
+                // style={{
+                //   left: "20px"
+                // }}
+
                 style={{
-                  left: "20px"
+                  // left: "20px",
+                  left:screenWidth < 768 ? "15px" : "20px",
+                  top:"auto",
+                  // width: screenWidth < 1200 ? "200px" : "244px",
+                   height:screenWidth < 1200 ? "359px" : "359px"
                 }}
 
               >
@@ -342,19 +350,13 @@ const Pump = () => {
                       <BalloonIcon1
                         fill={balloonColor}
                         label={activeLabel}
-                      // width={screenWidth <= 640 ? "200px" : "244px"}
+                        width={screenWidth <= 640 ? "200px" : "244px"}
                       // height={screenWidth <= 640 ? "180px" : "244px"}
                       // top={screenWidth <= 640 ? "-45" : "-30"}
                       // left={screenWidth <= 640 ? 15 : 18}
                       // top={15}
                       />
                     </div>
-
-
-
-
-
-
 
                   </>
                   )}
@@ -368,7 +370,7 @@ const Pump = () => {
                       style={{ backgroundColor: balloonColor }}
                     />
                   }
-                  <ChimneyIcon />
+                  <ChimneyIcon height={screenWidth < 1200 ? "44" : "64"} />
                 </div>
               </div>
             )}

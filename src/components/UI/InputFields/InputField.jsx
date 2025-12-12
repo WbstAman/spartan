@@ -56,44 +56,45 @@ const InputField = ({
 
         {/* Action Buttons if needed */}
         {showActions && (
-          <>
+          <div className="bg-scorebox-gray flex items-center">
             <button
               type="button"
               onClick={onHalf}
-              className="px-4 h-[41px] font-bold text-white text-sm bg-scorebox-gray transition cursor-pointer"
+              className="px-4 h-[41px] font-bold text-white text-sm bg-scorebox-gray transition cursor-pointer hover:bg-gray-light"
             >
               ½
             </button>
-            <div className="w-0.5 h-6 bg-primary-black"></div>
+            <div className="w-0.5 h-[22px] bg-primary-black"></div>
             <button
               type="button"
               onClick={onDouble}
-              className="px-4 h-[41px] font-bold text-white text-sm bg-scorebox-gray transition cursor-pointer  "
+              className="px-4 h-[41px] font-bold text-white text-sm bg-scorebox-gray transition cursor-pointer hover:bg-gray-light"
             >
               2×
             </button>
-          </>
+          </div>
         )}
 
-                {/* Increment Controls if needed */}
+        {/* Increment Controls if needed */}
         {showIncrement && (
-          <>
+          <div className="bg-scorebox-gray flex items-center">
             <button
               type="button"
               onClick={onDecrement}
-              className="px-3 py-2 font-bold text-white text-md bg-[#0F2738]  transition"
+              className="px-4 h-[41px] font-bold text-white text-sm bg-scorebox-gray transition cursor-pointer hover:bg-gray-light"
             >
-                <IoIosArrowDown/>
+              <IoIosArrowDown />
 
             </button>
+            <div className="w-0.5 h-[22px] bg-primary-black"></div>
             <button
               type="button"
               onClick={onIncrement}
-              className="px-3 py-2 font-bold text-white text-md bg-[#0F2738] transition"
+              className="px-4 h-[41px] font-bold text-white text-sm bg-scorebox-gray transition cursor-pointer hover:bg-gray-light"
             >
-                <IoIosArrowUp/>
+              <IoIosArrowUp />
             </button>
-          </>
+          </div>
         )}
       </div>
     </div>

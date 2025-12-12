@@ -1,9 +1,17 @@
 import { IoIosArrowBack } from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import ReloadIcon from '../../../assets/images/svgImages/ReloadIcon';
+import { useState } from 'react';
+import CustomModal from '../CustomModal/CustomModal';
+import CrashHistory from '../../Games/Crash/CrashGame/CrashHistory/CrashHistory';
 
 const ScoreBoard = () => {
     const { score } = useSelector((state) => state.crash);
+
+    const [open, setOpen] = useState(false)
+    const handleModal = () => {
+        // setOpen(true)
+    }
     return (
         <>
             <div className='flex justify-end items-start gap-2 px-4 sm:px-0 w-full  overflow-hidden sm:overflow-auto'>
@@ -18,7 +26,7 @@ const ScoreBoard = () => {
                 }
 
                 <div>
-                    <div className='bg-scorebox-gray rounded-full w-9 h-9 flex justify-center items-center cursor-pointer hover:bg-midnight-teal'>
+                    <div className='bg-scorebox-gray rounded-full w-9 h-9 flex justify-center items-center cursor-pointer hover:bg-midnight-teal' onClick={handleModal}>
                         <ReloadIcon />
                     </div>
 
@@ -28,6 +36,17 @@ const ScoreBoard = () => {
                     </div> */}
                 </div>
             </div>
+
+            <CustomModal
+                isOpen={open}
+                onClose={() => setOpen(false)}
+                title="Crash History"
+                width="max-w-[768px]"
+                isTopIcon={true}
+                topIcon={<ReloadIcon fill='#92aab7' />}
+            >
+                <CrashHistory/>
+            </CustomModal>
         </>
     )
 }

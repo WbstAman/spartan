@@ -32,6 +32,7 @@ const CrashSidebar = () => {
   const [betAmount, setBetAmount] = useState("10.00");
   const [autoCashoutAt, setAutoCashoutAt] = useState(autoCashout || "2.00");
   const [manualCashoutProfit, setManualCashoutProfit] = useState(null);
+  const [isCashoutLoading, setIsCashoutLoading] = useState(false);
 
   const [tabs, setTabs] = useState(tabsMenu);
   const [activeTab, setActiveTab] = useState(0);
@@ -172,18 +173,36 @@ const CrashSidebar = () => {
     setTabs((prev) => prev.map((t, i) => ({ ...t, isActive: i === index })));
   };
 
-  const handleCashout = () => {
-    if (!currentBet || !multiplier) return;
+  const handleCashout = async () => {
+    if (isCashoutLoading || !hasBet || gameState !== "flying") return;
 
-    const profit = (multiplier * currentBet - currentBet).toFixed(2);
+    setIsCashoutLoading(true);
 
-    setManualCashoutProfit(profit);
-    dispatch(cashout());
+    try {
+      const result = await dispatch(cashout()).unwrap();
+
+      if (result?.success) {
+        toast.success(
+          `Cashed out at ${result.multiplier}x! +${result.profit} USDT`,
+          { duration: 5000 }
+        );
+      }
+    } catch (err) {
+      // setManualCashoutProfit(null);
+    } finally {
+      // setIsCashoutLoading(false);
+    }
   };
 
   const isBettingPhase =
     (gameState === "betting" || gameState === "loading") && !hasBet;
   const isFlyingWithBet = gameState === "flying" && hasBet;
+
+  useEffect(() => {
+    if (isBettingPhase || gameState === "loading") {
+      setIsCashoutLoading(false);
+    }
+  }, [isBettingPhase, gameState]);
 
   return (
 
@@ -218,7 +237,7 @@ p-[22px]
             rightLabel="x"
             value={autoCashoutAt}
             showIncrement
-            onChange={(e) => handleCashoutAt(e, null)}
+            onChange={(e) => handleCashoutAt(e, "text")}
             onIncrement={() => handleCashoutAt(null, "inc")}
             onDecrement={() => handleCashoutAt(null, "dec")}
           />
@@ -237,7 +256,9 @@ p-[22px]
               }
               variant={isBettingPhase ? "default" : "secondary"}
               onClick={isFlyingWithBet ? handleCashout : handleManualBet}
-              disabled={!isBettingPhase && !isFlyingWithBet}
+              disabled={
+                (!isBettingPhase && !isFlyingWithBet) || isCashoutLoading
+              }
               className="w-full text-lg font-bold"
             />
           </div>

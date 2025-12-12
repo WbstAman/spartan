@@ -107,12 +107,6 @@ export const connectWebSocket = createAsyncThunk(
         const type = raw.type;
         const data = raw.message || raw;
 
-        // if (data.status && data.status !== "InProgress") {
-        //   console.log("wrapper: ", wrapper);
-        //   console.log("type:", type);
-        //   console.log("data:", data);
-        // }
-
         // console.log("type: ", type);
         // console.log("data: ", data);
 
@@ -150,13 +144,14 @@ export const connectWebSocket = createAsyncThunk(
         if (type === "round_stats" && Array.isArray(data.winners)) {
           // console.log("CURRENT ROUND WINNERS:", data.winners);
 
-          console.log("type: ", type);
-          console.log("data: ", data);
+          // console.log("type: ", type);
+          // console.log("data: ", data);
 
           const winners = data.winners.map((w) => ({
             nick: w.nick || w.user || "Unknown",
             amount: parseFloat(w.amount || w.winAmount || 0).toFixed(2),
             currency: w.currency || "€",
+            winData: w.winData || "-",
             time: new Date().toLocaleTimeString().slice(0, 8),
             highlight: w.nick !== "HOUSE" && w.nick !== "House",
           }));
@@ -263,27 +258,6 @@ export const connectWebSocket = createAsyncThunk(
           }
         }
 
-        // if (
-        //   type === "win" &&
-        //   data.success === true &&
-        //   data.bets &&
-        //   data.bets.length > 0
-        // ) {
-        //   const state = getState().crash;
-        //   const betAmount = state.pendingBetAmount || state.currentBet || 0;
-
-        //   if (!betAmount) return;
-
-        //   const winAmount = parseFloat(data.winAmount || 0);
-        //   const profit = (winAmount - betAmount).toFixed(2);
-
-        //   dispatch(setLastWin(winAmount));
-        //   dispatch(setHasBet(false));
-        //   dispatch(setCurrentBet(null));
-        //   dispatch(setPendingBetAmount(0));
-        //   window.__LAST_KNOWN_WIN_AMOUNT = null;          
-        // }
-
         if (
           wrapper.type === "message" &&
           raw.name === "Winners" &&
@@ -294,6 +268,7 @@ export const connectWebSocket = createAsyncThunk(
             nick: item.nick,
             amount: parseFloat(item.amount).toFixed(2),
             currency: item.currency || "€",
+            winData: item.winData || "-",
             time: item.date.split(" ")[1].slice(0, 8),
             highlight: item.nick !== "HOUSE",
           }));
@@ -424,13 +399,21 @@ export const cashout = createAsyncThunk(
 
       if (responseData?.state?.status === "Won") {
         const winAmount = parseFloat(responseData.state.winAmount);
-        const betAmount = state.currentBet || state.pendingBetAmount;
+        const betAmount = state.currentBet || state.pendingBetAmount || 0;
         const realProfit = (winAmount - betAmount).toFixed(2);
+        const currentMultiplier = state.multiplier.toFixed(2); // Capture exact moment
 
         dispatch(lockProfit(realProfit));
+
+        return {
+          success: true,
+          profit: realProfit,
+          multiplier: currentMultiplier,
+        };
       }
     } catch (err) {
       toast.error("Cashout failed!");
+      throw err; // Let component know it failed
     }
   }
 );
